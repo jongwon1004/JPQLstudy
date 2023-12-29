@@ -9,7 +9,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
         # create - 기존 테이블 삭제 후 다시 생성 (DROP + CREATE)
         # create-drop - create 와 같으나 종료시점에 테이블 DROP
         # update - 변경분만 반영(운영DB에는 사용하면 안됨)
@@ -22,3 +22,4 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
+        default_batch_fetch_size: 100

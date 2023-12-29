@@ -56,9 +56,11 @@ public class FetchJoinController {
         // 밑의 경우는 같은 식별자를 가진 Team 엔티티를 제거해줌
         // distinct 를 쓰지 않았을때는 teamA 의 회원이 두명이니까 teamA 이 두번 조회됐지만 , distinct 를 사용해서
         // 애플리케이션 단위에서 teamA 가 같은 엔티티니까 중복을 제거해줘서 총결과값이 2개 나옴 ( teamA, teamB )
+        // 엔티티 입장에서 중복인거는 줄여서 리스트에 반환할거야 // DB 입장에서는 1대다 조인은 데이터 뻥튀기가 된다
         String query = "select distinct t from Team t join fetch t.members";
         List<Team> resultList = em.createQuery(query, Team.class)
                 .getResultList();
+
 
         System.out.println(resultList.size());
 
@@ -70,6 +72,13 @@ public class FetchJoinController {
             }
         }
 
+        /*
+            페치 조인과 일반 조인의 차이
+            1. JPQL 은 결과를 반환할 때 연관관계 고려 X
+            2. 단지 SELECT 절에 지정한 엔티티만 조회할 뿐
+            3. 페치 조인을 사용할 때만 연관된 엔티티도 함께 조회(즉시 로딩)
+            4. 페치 조인은 객체 그래프를 SQL 한번에 조회하는 개념
+         */
 
         return "";
     }
